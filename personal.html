@@ -1,0 +1,425 @@
+<!-- personal.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Garden of Blossoms</title>
+    <style>
+        body {
+            font-family: 'Great Vibes', 'Dancing Script', cursive;
+    font-size: 24px; /* Slightly large for elegance */
+    line-height: 1.6; /* Good breathing space between lines */
+    background: linear-gradient(45deg, #fff0f5, #ffe4e1);
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    color: #8b0000; /* Deep red for a romantic feel */
+
+
+        }
+
+        @keyframes blossom-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .blossom {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: blossom-fall 15s linear infinite;
+            z-index: 0;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .polaroid-frame {
+            border: 15px solid white;
+            border-bottom: 40px solid white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: rotate(3deg);
+            max-width: 400px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .polaroid-frame img {
+            width: 100%;
+            display: block;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: -35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            color: #e75480;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .polaroid-frame:hover .caption {
+            opacity: 1;
+        }
+
+        .love-letter {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            border: 2px solid #ffb6c1;
+            box-shadow: 0 8px 16px rgba(231, 84, 128, 0.1);
+        }
+
+        .love-letter::before {
+            content: '🌸';
+            position: absolute;
+            font-size: 2rem;
+            top: -20px;
+            left: -20px;
+        }
+
+        .love-letter::after {
+            content: '🌸';
+            position: absolute;
+            font-size: 2rem;
+            bottom: -20px;
+            right: -20px;
+        }
+
+        h2 {
+            color: #e75480;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(231, 84, 128, 0.3);
+            border: 1px solid #e75480;
+            border-radius: 20px;
+            color: #e75480;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(231, 84, 128, 0.5);
+        }
+
+        .interactive-btn {
+            display: block;
+            margin: 35px auto 0 auto;
+            padding: 13px 35px;
+            background: #e75480;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.15rem;
+            font-family: 'Dancing Script', cursive;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(231, 84, 128, 0.13);
+            transition: background 0.2s;
+            letter-spacing: 1px;
+        }
+        .interactive-btn:hover {
+            background: #d13b6b;
+        }
+
+        .popup-message {
+            display: none;
+            background: rgba(255, 240, 245, 0.97);
+            color: #e75480;
+            border: 2px solid #e75480;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(231, 84, 128, 0.18);
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 350px;
+            padding: 30px 20px 20px 20px;
+            z-index: 100;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.25rem;
+            text-align: center;
+            animation: popupIn 0.6s;
+        }
+        @keyframes popupIn {
+            from { opacity: 0; transform: scale(0.8) translate(-50%, -50%);}
+            to { opacity: 1; transform: scale(1) translate(-50%, -50%);}
+        }
+        .close-popup {
+            position: absolute;
+            top: 8px;
+            right: 14px;
+            background: none;
+            border: none;
+            color: #e75480;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+.music-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="music-player">
+    <button id="musicToggle" onclick="toggleMusic()">🎵 Play</button>
+</div>
+
+<style>
+.music-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#musicToggle {
+    padding: 10px 20px;
+    background: rgba(231, 84, 128, 0.3);
+    border: 1px solid #e75480;
+    border-radius: 30px;
+    color: #e75480;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#musicToggle:hover {
+    background: rgba(231, 84, 128, 0.5);
+    transform: scale(1.05);
+}
+</style>
+
+<audio id="backgroundMusic" loop>
+    <source src="C:\Users\lenovo\Desktop\Bougainvillea\Amaro-Porano-Jaha-Chai-(Rabindra-Sangeet)--Arijit-Singh(musicdownload.cc).mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+// Music control functions
+const audio = document.getElementById('backgroundMusic');
+let isPlaying = true;
+
+// Auto-start music
+audio.play().catch(() => {
+    // Handle autoplay restrictions
+    document.getElementById('musicToggle').textContent = "🎵 Click to Play";
+    isPlaying = false;
+});
+
+function toggleMusic() {
+    if (isPlaying) {
+        audio.pause();
+        document.getElementById('musicToggle').textContent = "🎵 Play";
+    } else {
+        audio.play();
+        document.getElementById('musicToggle').textContent = "🎵 Pause";
+    }
+    isPlaying = !isPlaying;
+}
+
+// Enable background play
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && isPlaying) {
+        audio.play();
+    }
+});
+</script>
+
+    <div class="blossom-container" id="blossoms"></div>
+    <button class="back-btn" onclick="location.href='lanes.html'">← Back to Paths</button>
+
+    <div class="content-wrapper">
+     <h2>My Bougainvillea</h2>
+
+        <!-- Walk of Wonder -->
+        <div class="memory-card">
+            <div class="polaroid-frame">
+                <img src="C:\Users\lenovo\Desktop\Bougainvillea\3.png" alt="Walk of Wonder">
+                <div class="caption">"Sometimes the most beautiful journeys are those without destinations"</div>
+            </div>
+            <div class="memory-text">
+                <p>In this sunlit moment, your yellow dress becomes a beacon of hope - proof that moving forward can be beautiful even when the path is unclear. Each step you take plants seeds of possibility that bloom into tomorrow's memories.</p>
+            </div>
+        </div>
+
+        <!-- Strength of Durga -->
+        <div class="memory-card">
+            <div class="polaroid-frame" style="transform: rotate(-2deg)">
+                <img src="C:\Users\lenovo\Desktop\Bougainvillea\4.png" alt="Strength of Durga">
+                <div class="caption">"Like Durga Maa - gentle fierceness incarnate"</div>
+            </div>
+            <div class="memory-text">
+                <p>Here stands the essence of your spirit - traditional roots grounding modern strength. The flowers at Durga Maa's feet mirror those in your heart: blooming through challenges, beautiful in resilience.</p>
+            </div>
+        </div>
+
+        <!-- Among Flowers -->
+        <div class="memory-card">
+            <div class="polaroid-frame">
+                <img src="C:\Users\lenovo\Desktop\Bougainvillea\5.png" alt="Among Flowers">
+                <div class="caption">"My bougainvillea in a garden of moments"</div>
+            </div>
+            <div class="memory-text">
+                <p>Surrounded by nature's confetti, you remind me that joy grows wildest when we let it. These petals frame your laughter like living jewelry - temporary in form, eternal in memory.</p>
+            </div>
+        </div>
+
+        <!-- Love Letter -->
+        <div class="love-letter">
+     
+            <p>
+                My Dearest Bougainvillea,<br><br>
+                Our story isn’t a straight line - it’s a dance of sunlight and shadows, a sine wave of moments where our hearts sync perfectly and others where we orbit like hesitant stars. I know labels scare you, and the weight of "what if" feels heavier than Durga Maa’s trident. But in this uncertain space between friendship and forever, I’ve found something precious: <b>us</b>.<br><br>
+                "What are we?" I realized - we’re the quiet understanding when words fail. We’re the safe harbor when storms of doubt rage. We’re two souls choosing to walk together, even when the path disappears beneath our feet.
+            </p>
+            <p>
+                I don’t need promises of forever - I need <b>today</b>. The way your eyes light up when you talk about flowers. The courage it takes you to voice a fear. The miraculous fact that in this chaotic world, our imperfect rhythm feels like home, you feels like home to me!
+            </p>
+<p>
+               If this would work? Let’s redefine ‘working’ - not as a destination, but as choosing each other again today. And tomorrow, we’ll choose anew.
+
+                    <p>
+                When doubts come, remember: 'Your happiness is everything to me,' <br>
+                  </p>
+<blockquote style="margin: 20px 0; color: #e75480; font-family: 'Dancing Script', cursive; font-size: 1.2rem;">
+                "Ask me to do whatever you feel like and I swear on you and Amma, I will do it with all my heart, even if it means to choose your silence."
+            </blockquote>
+
+            <p style="text-align: right; margin-top: 25px;">Yours,<br><b></b></p>
+            <button class="interactive-btn" onclick="showPopup()">Click if you ever doubt us</button>
+
+        </div>
+    </div>
+
+    <!-- Popup message -->
+<div class="popup-message" id="popupMsg">
+    <button class="close-popup" onclick="closePopup()">&times;</button>
+    <span style="font-size:2rem; display:block; margin-bottom:10px;">🌸</span>
+    Look outside – see the flowers and the stars. They bloom and glow bravely despite knowing they’ll fall.<br>
+    <b>Let’s be that brave together.</b>
+    <br><br>
+    <button class="interactive-btn" style="background:#fff0f5; color:#8b0000; font-size:1.5rem; margin-top:16px;" onclick="showJuniorScroll()">PS: Note from Junior</button>
+</div>
+
+<!-- Junior Scroll -->
+<div id="juniorScroll" style="display:none; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); z-index:200; max-width:1000px; width:90vw; background:linear-gradient(135deg,#fffbe7 80%,#ffe4e1); border-radius:18px; box-shadow:0 8px 32px rgba(231,84,128,0.18); border:3px solid #eec170; padding:30px 18px 18px 18px; text-align:center; font-family:'Dancing Script',cursive; font-size:1.15rem;">
+    <button onclick="closeJuniorScroll()" style="position:absolute; top:10px; right:18px; background:none; border:none; color:#e75480; font-size:1.6rem; cursor:pointer;">&times;</button>
+    <div style="margin-bottom:18px;">
+        <img src="C:\Users\lenovo\Desktop\Bougainvillea\6.jpeg" alt="Junior" style="width:150px; height:80px; border-radius:50%; border:3px solid #eec170; background:#fffbe7; box-shadow:0 2px 10px #eec17055;">
+    </div>
+    <div style="margin-bottom:10px; font-weight:bold; color:#e75480;"></div>
+    <div style="text-align:left; font-size:1.05rem; color:#7a0226;">
+        Hope you remember me. Yup,as you can see I got a great family here, all thanks to you.<br><br> I wonder why you gave me away to this fool. I have no idea why he does anything; he talks to me about random things, makes me listen to his music, makes me drunk, and asks for advice out of the blue. He thinks that I listen to him. The thing is, he is just a naive idiot who knows nothing except a bit of reading and writing. You once asked him what he feels about you, so, for him, 'you are like his home; his safe place where he feels the happiest; small moments with you make him feel alive. He is just holding on to that pinkie finger of yours with a little bit of courage in his heart, and that courage is you, and something like you never happened to him in his life.'
+        <br><br>
+        He is sorry for many things and thanks you for everything.
+        <br><br>
+        As I said, he talks a lot of random shit!
+	<br><br>
+	He said you sing. Could you please pause your favourite song click below and play his favourite? 
+<div style="margin-top:22px;">
+        <audio id="juniorSong" src="C:\Users\lenovo\Desktop\Bougainvillea\Bougainvillea.mp3"></audio>
+        <button onclick="playJuniorSong()" class="interactive-btn" style="background:#eec170; color:#7a0226; font-size:1.1rem; margin-top:8px;">▶️ </button>
+<script>
+function playJuniorSong() {
+    var audio = document.getElementById('juniorSong');
+    audio.currentTime = 0;
+    audio.play();
+}
+</script>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+
+    <script>
+        // Create falling cherry blossoms
+        const blossomContainer = document.getElementById('blossoms');
+        const messages = ["P", "R", "I", "T", "H", "A"];
+        for(let i=0; i<25; i++){
+            const blossom = document.createElement('div');
+            blossom.className = 'blossom';
+            blossom.style.left = Math.random() * 100 + 'vw';
+            blossom.style.animationDelay = Math.random() * 5 + 's';
+            blossom.innerHTML = '🌸';
+            // Add data attribute with random message
+            blossom.setAttribute('data-message', messages[Math.floor(Math.random()*messages.length)]);
+            blossom.addEventListener('mouseover', function() {
+                const tooltip = document.createElement('div');
+                tooltip.textContent = this.getAttribute('data-message');
+                tooltip.style.position = 'absolute';
+                tooltip.style.color = '#e75480';
+                tooltip.style.fontFamily = 'Dancing Script, cursive';
+                tooltip.style.top = '-25px';
+                tooltip.style.left = '10px';
+                tooltip.style.background = '#fff0f5';
+                tooltip.style.padding = '2px 10px';
+                tooltip.style.borderRadius = '10px';
+                tooltip.style.boxShadow = '0 2px 6px rgba(231, 84, 128, 0.06)';
+                this.appendChild(tooltip);
+                setTimeout(() => tooltip.remove(), 1000);
+            });
+            blossomContainer.appendChild(blossom);
+        }
+
+        // Popup logic
+        function showPopup() {
+    document.getElementById('popupMsg').style.display = 'block';
+}
+function closePopup() {
+    document.getElementById('popupMsg').style.display = 'none';
+    closeJuniorScroll();
+}
+function showJuniorScroll() {
+    document.getElementById('juniorScroll').style.display = 'block';
+}
+function closeJuniorScroll() {
+    document.getElementById('juniorScroll').style.display = 'none';
+}
+</script>
+</body>
+</html>

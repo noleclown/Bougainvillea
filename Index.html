@@ -1,0 +1,70 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Journey</title>
+    <style>
+        body {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(135deg, #fff3e6, #ffe5cc);
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            max-width: 600px;
+            animation: fadeIn 1.5s ease-in;
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: #e67e22;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        p {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        .start-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: #e67e22;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+            background: #d35400;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your Memory Garden</h1>
+        <p>A place where moments blossom and memories dance...</p>
+        <button class="start-btn" onclick="location.href='lanes.html'">Begin the Journey 🌸</button>
+    </div>
+</body>
+</html>

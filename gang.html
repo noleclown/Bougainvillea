@@ -1,0 +1,257 @@
+<!-- gang.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friendship Chronicles</title>
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(180deg, #0a0a2e, #1a1a4a);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .stars {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        .memory-container {
+            max-width: 800px;
+            margin: 50px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            backdrop-filter: blur(5px);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .firefly {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #fff7d6 20%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translate(100vw, -100vh); opacity: 0; }
+        }
+
+        h2 {
+            color: #ffd700;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 40px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .quote {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.4rem;
+            color: #ffd700;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .image-frame {
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 215, 0, 0.3);
+            border: 1px solid #ffd700;
+            border-radius: 20px;
+            color: #ffd700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 215, 0, 0.5);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <button class="back-btn" onclick="location.href='lanes.html'">← Back to Paths</button>
+<div class="music-player">
+    <button id="musicToggle" onclick="toggleMusic()">🎵 Play</button>
+</div>
+
+<style>
+.music-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#musicToggle {
+    padding: 10px 20px;
+    background: rgba(255, 215, 0, 0.3);
+    border: 1px solid #e75480;
+    border-radius: 20px;
+    color: #ffd700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#musicToggle:hover {
+    background: rgba(231, 84, 128, 0.5);
+    transform: scale(1.05);
+}
+</style>
+
+<audio id="backgroundMusic" loop>
+    <source src="C:\Users\lenovo\Desktop\Bougainvillea\128-Woh Din - Chhichhore 128 Kbps.mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+// Music control functions
+const audio = document.getElementById('backgroundMusic');
+let isPlaying = true;
+
+// Auto-start music
+audio.play().catch(() => {
+    // Handle autoplay restrictions
+    document.getElementById('musicToggle').textContent = "🎵 Click to Play";
+    isPlaying = false;
+});
+
+function toggleMusic() {
+    if (isPlaying) {
+        audio.pause();
+        document.getElementById('musicToggle').textContent = "🎵 Play";
+    } else {
+        audio.play();
+        document.getElementById('musicToggle').textContent = "🎵 Pause";
+    }
+    isPlaying = !isPlaying;
+}
+
+// Enable background play
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && isPlaying) {
+        audio.play();
+    }
+});
+</script>
+
+
+    <div class="memory-container">
+        <h2>Your Golden Era ✨</h2>
+
+        <div class="memory-card">
+            <div class="image-frame">
+                <img src="C:\Users\lenovo\Desktop\Bougainvillea\1.png" alt="The Beginning">
+            </div>
+            <p class="quote">"Memories are the jewels we polish with the hands of friendship, each one gleaming with shared laughter and tears."</p>
+            
+            <div class="memory-text">
+                In this captured moment, time stands still - a testament to the unbreakable bonds you forged. The laughter echoing through the frame is a symphony of late-night adventures, shared dreams, and the unspoken promise that no distance can erase what you've built together.
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <div class="image-frame">
+                <img src="C:\Users\lenovo\Desktop\Bougainvillea\2.png" alt="United Moments">
+            </div>
+            <p class="quote">"From wild nights to power moves, your gang left a mark no distance can erase."</p>
+            
+            <div class="memory-text">
+                Here stands your chosen family - warriors of joy, architects of memories. The determined smiles whisper of midnight conversations and shared ambitions. Though paths may diverge, these faces remain etched in your story, forever part of your journey's foundation.
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <h3>New Beginnings</h3>
+            <div class="memory-text">
+                The division you feel isn't an ending, but a transformation. Like fireflies that light up different parts of the night yet belong to the same sky, your gang's light continues to shine - sometimes together, sometimes apart, but always part of the same constellation.
+            </div>
+            <p class="quote">"The shared history becomes the foundation for future growth - connections reborn in unexpected ways."</p>
+        </div>
+    </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for(let i=0; i<100; i++){
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random()*3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random()*100 + 'vw';
+            star.style.top = Math.random()*100 + 'vh';
+            star.style.animationDelay = Math.random()*2 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Create fireflies
+        for(let i=0; i<20; i++){
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            firefly.style.left = Math.random()*100 + 'vw';
+            firefly.style.top = Math.random()*100 + 'vh';
+            firefly.style.animationDelay = Math.random()*5 + 's';
+            document.body.appendChild(firefly);
+        }
+    </script>
+</body>
+</html>

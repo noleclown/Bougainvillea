@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Path</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: #07080e;
+            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .centerer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            color: #ffe066;
+            font-size: 2.5rem;
+            margin: 30px 0 40px 0;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0 0 18px #ffe06688;
+        }
+        .path-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            width: 100%;
+        }
+        .path-card {
+            background: rgba(20, 20, 30, 0.92);
+            border-radius: 20px;
+            padding: 30px;
+            width: 360px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(255,224,102,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .path-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 12px 24px #ffe06633;
+            background: rgba(30, 30, 50, 0.97);
+        }
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,224,102,0.07), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-200%); }
+            100% { transform: rotate(45deg) translateX(200%); }
+        }
+        .path-card h2 {
+            color: #ffe066;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .path-card p {
+            color: #f6e7b2;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 0 6px #ffe066cc);
+        }
+
+        /* Firefly background */
+        #firefly-bg {
+            position: fixed;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .firefly {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffe066 60%, #fffbe7 100%, transparent 100%);
+            box-shadow: 0 0 18px 3px #ffe066, 0 0 10px 2px #fffbe7;
+            opacity: 0.85;
+            animation: firefly-move 18s linear infinite;
+            filter: blur(0.5px);
+        }
+        @keyframes firefly-move {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.7;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(var(--y)) translateX(var(--x)) scale(1.25);
+                opacity: 0.2;
+            }
+        }
+
+        /* Firefly Fancy Popup */
+        #firefly-popup-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10,10,50,0.62);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0;}
+            to { opacity: 1;}
+        }
+        .firefly-popup {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a2d 80%, #22223b 100%);
+            border-radius: 22px;
+            box-shadow: 0 8px 32px #ffe06633, 0 0 60px #ffe06644;
+            padding: 38px 28px 38px 28px;
+            min-width: 340px;
+            max-width: 95vw;
+            animation: popupZoom 0.6s cubic-bezier(.56,1.58,.64,1) both;
+            overflow: hidden;
+        }
+        @keyframes popupZoom {
+            0% { transform: scale(0.7); opacity: 0;}
+            70% { transform: scale(1.08);}
+            100% { transform: scale(1); opacity: 1;}
+        }
+        .firefly-question {
+            font-family: 'Dancing Script', cursive;
+            color: #ffe066;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .firefly-hint {
+            font-family: 'Poppins', sans-serif;
+            color: #ffe066cc;
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            text-align: center;
+            display: block;
+        }
+        #firefly-answer {
+            width: 90%;
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            border-radius: 14px;
+            border: 1px solid #ffe066;
+            margin-bottom: 18px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #181824;
+            color: #ffe066;
+        }
+        .firefly-submit {
+            display: block;
+            margin: 0 auto 0 auto;
+            padding: 10px 28px;
+            background: #ffe066;
+            color: #181824;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-family: 'Dancing Script', cursive;
+            cursor: pointer;
+            box-shadow: 0 4px 10px #ffe06644;
+            transition: background 0.2s;
+        }
+        .firefly-submit:hover {
+            background: #fffbe7;
+        }
+        .firefly-close {
+            position: absolute;
+            top: 10px; right: 18px;
+            background: none;
+            border: none;
+            color: #ffe066;
+            font-size: 1.7rem;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .firefly-container {
+            pointer-events: none;
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            z-index: 1;
+        }
+        .firefly-popup .firefly {
+            width: 8px;
+            height: 8px;
+            opacity: 0.7;
+            animation: firefly-move-popup 9s linear infinite;
+            filter: blur(0.5px);
+        }
+        @keyframes firefly-move-popup {
+            0% {transform: translateY(0) translateX(0) scale(1);}
+            100% {transform: translateY(var(--y)) translateX(var(--x)) scale(1.2);}
+        }
+        @keyframes shake {
+            0% { transform: translateX(0);}
+            20% { transform: translateX(-10px);}
+            40% { transform: translateX(10px);}
+            60% { transform: translateX(-10px);}
+            80% { transform: translateX(10px);}
+            100% { transform: translateX(0);}
+        }
+        @media (max-width: 900px) {
+            .path-container {
+                flex-direction: column;
+                gap: 32px;
+            }
+            .path-card {
+                width: 90vw;
+                min-width: 220px;
+                max-width: 400px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="firefly-bg"></div>
+    <div class="centerer">
+        <h1>Bougainvillea and Hers</h1>
+        <div class="path-container">
+            <div class="path-card" onclick="location.href='gang.html'">
+                <span class="emoji">👯♀️</span>
+                <h2>Friendship Chronicles</h2>
+                <p>Relive the laughter, adventures, and unbreakable bonds</p>
+            </div>
+            <div class="path-card" onclick="showFireflyPopup()">
+                <span class="emoji">💌</span>
+                <h2>Secret Garden</h2>
+                <p>My Special collection of moments just for you</p>
+            </div>
+        </div>
+    </div>
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_3f6a2e2d3c.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Firefly Fancy Popup -->
+    <div id="firefly-popup-overlay">
+      <div class="firefly-popup">
+        <button class="firefly-close" onclick="closeFireflyPopup()">&times;</button>
+        <div class="firefly-question" id="firefly-question"></div>
+        <span class="firefly-hint" id="firefly-hint"></span>
+        <input id="firefly-answer" type="text" autocomplete="off" placeholder="Your answer..." />
+        <button class="firefly-submit" onclick="submitFireflyAnswer()">Submit</button>
+        <!-- Fireflies in popup -->
+        <div class="firefly-container" id="firefly-container"></div>
+      </div>
+    </div>
+
+    <script>
+    // Firefly background animation (night with transparent fireflies)
+    const fireflyBg = document.getElementById('firefly-bg');
+    function randomFireflyProps() {
+        const vw = window.innerWidth, vh = window.innerHeight;
+        return {
+            x: Math.random() * vw,
+            y: Math.random() * vh,
+            dx: (Math.random() - 0.5) * 200,
+            dy: (Math.random() - 0.5) * 250
+        };
+    }
+    function createFireflyBG() {
+        fireflyBg.innerHTML = '';
+        for (let i = 0; i < 22; i++) {
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            const props = randomFireflyProps();
+            firefly.style.left = props.x + 'px';
+            firefly.style.top = props.y + 'px';
+            firefly.style.setProperty('--x', `${props.dx}px`);
+            firefly.style.setProperty('--y', `${props.dy}px`);
+            firefly.style.animationDuration = (14 + Math.random()*8) + 's';
+            firefly.style.opacity = 0.5 + Math.random()*0.5;
+            fireflyBg.appendChild(firefly);
+        }
+    }
+    createFireflyBG();
+    window.addEventListener('resize', createFireflyBG);
+
+    // Firefly Fancy Popup Logic
+    let fireflyStep = 0;
+    function showFireflyPopup() {
+        fireflyStep = 0;
+        document.getElementById('firefly-popup-overlay').style.display = 'flex';
+        askFireflyQuestion();
+        createFirefliesPopup();
+        setTimeout(() => document.getElementById('firefly-answer').focus(), 400);
+    }
+    function closeFireflyPopup() {
+        document.getElementById('firefly-popup-overlay').style.display = 'none';
+        document.getElementById('firefly-container').innerHTML = '';
+    }
+    function askFireflyQuestion() {
+        const questions = [
+            "🌟 What I like about you the most?",
+            "✨ What I hate about you the most?"
+        ];
+        const hints = [
+            "Hint: It's all about you, always. (One word, starts with 'e')",
+            "Hint: It's the quiet that hurts the most. (One word, ends with 'e')"
+        ];
+        document.getElementById('firefly-question').textContent = questions[fireflyStep];
+        document.getElementById('firefly-hint').textContent = hints[fireflyStep];
+        document.getElementById('firefly-answer').value = '';
+    }
+    function submitFireflyAnswer() {
+        const answer = document.getElementById('firefly-answer').value.trim().toLowerCase();
+        if (fireflyStep === 0) {
+            if (answer.includes("everything")) {
+                fireflyStep = 1;
+                askFireflyQuestion();
+                setTimeout(() => document.getElementById('firefly-answer').focus(), 200);
+            } else {
+                shakeFireflyPopup();
+                document.getElementById('firefly-answer').value = '';
+                setTimeout(() => document.getElementById('firefly-answer').focus(), 200);
+            }
+        } else if (fireflyStep === 1) {
+            if (answer.includes("silence")) {
+                closeFireflyPopup();
+                location.href = 'personal.html';
+            } else {
+                shakeFireflyPopup();
+                document.getElementById('firefly-answer').value = '';
+                setTimeout(() => document.getElementById('firefly-answer').focus(), 200);
+            }
+        }
+    }
+    function shakeFireflyPopup() {
+        const popup = document.querySelector('.firefly-popup');
+        popup.style.animation = 'shake 0.3s';
+        popup.addEventListener('animationend', () => {
+            popup.style.animation = '';
+        }, {once:true});
+    }
+
+    // Fireflies in popup
+    function createFirefliesPopup() {
+        const container = document.getElementById('firefly-container');
+        container.innerHTML = '';
+        for (let i = 0; i < 10; i++) {
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            firefly.style.left = Math.random()*90 + '%';
+            firefly.style.top = Math.random()*80 + '%';
+            firefly.style.setProperty('--x', `${(Math.random()-0.5)*60}px`);
+            firefly.style.setProperty('--y', `${(Math.random()-0.5)*60}px`);
+            firefly.style.animationDuration = (6 + Math.random()*4) + 's';
+            firefly.style.opacity = 0.5 + Math.random()*0.5;
+            container.appendChild(firefly);
+        }
+    }
+
+    // Allow pressing Enter to submit
+    document.addEventListener('keydown', function(e) {
+        const overlay = document.getElementById('firefly-popup-overlay');
+        if (overlay.style.display === 'flex' && e.key === 'Enter') {
+            submitFireflyAnswer();
+        }
+    });
+    </script>
+</body>
+</html>
