@@ -350,7 +350,7 @@
     function submitFireflyAnswer() {
         const answer = document.getElementById('firefly-answer').value.trim().toLowerCase();
         if (fireflyStep === 0) {
-            if (answer.includes("@everything")) {
+            if (answer.includes("everything")) {
                 fireflyStep = 1;
                 askFireflyQuestion();
                 setTimeout(() => document.getElementById('firefly-answer').focus(), 200);
@@ -360,7 +360,7 @@
                 setTimeout(() => document.getElementById('firefly-answer').focus(), 200);
             }
         } else if (fireflyStep === 1) {
-            if (answer.includes("@silence")) {
+            if (answer.includes("silence")) {
                 closeFireflyPopup();
                 location.href = 'personal.html';
             } else {
